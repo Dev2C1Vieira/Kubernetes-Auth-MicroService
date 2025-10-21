@@ -1,0 +1,65 @@
+--------Configuration
+
+Create cluster
+
+Define IP address ACL
+
+export KUBECONFIG=./scc-kubeconfig.yaml
+
+--------Configuration
+
+> kubectl get nodes
+> kubectl cluster-info
+> kubectl run myfirstnginxpod --image=nginx:latest --port=80
+> kubectl get pods
+> kubectl describe pods
+> kubectl delete pod myfirstnginxpod
+
+--------First deployment
+
+> kubectl apply -f 1-deployment.yaml
+> kubectl get deployments
+> kubectl get pods
+> kubectl edit deployment scc-deployment
+> kubectl get pods
+> kubectl apply -f 1-service.yaml
+> kubectl get services
+<check linode node balancer>
+<get the ip address and test in the browser>
+> kubectl describe services scc-service
+> kubectl edit deployment scc-deployment 
+<change do httpd image>
+<test in the browser the updated application>
+
+--------PostgreSQL
+
+https://jineshnagori.medium.com/ultimate-guide-to-setting-up-postgresql-in-kubernetes-with-statefulsets-adminer-dashboard-and-6232323cb4dc
+
+<Creating PersistentVolumeClaim>
+<It acts as a flexible binding mechanism, linking the user’s storage needs to the underlying PersistentVolume.>
+> kubectl apply -f 2-postgre-pvc.yaml
+
+<Creating PersistentVolume>
+<PersistentVolumes represent actual storage resources in a cluster, abstracting the underlying details of specific storage providers.> 
+> kubectl apply -f 3-postgre-pv.yaml
+
+<PostgreSQL StatefulSet>
+> kubectl apply -f 4-dep-postgreSQL.yaml
+
+<PostgreSQL Services>
+> kubectl apply -f 5-serv-postgreSQL.yaml
+
+postgres://postgres:password@postgresql-service:5432/mydatabase
+
+
+--------
+
+> kubectl get statefulsets
+> kubectl delete statefulset postgresql
+
+
+--------------Services
+> kubectl get services 
+> kubectl delete service postgresql
+
+

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scc-deployment
+  labels:
+    app: scc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: scc
+  template:
+    metadata:
+      labels:
+        app: scc
+    spec:
+      containers:
+        - name: scc
+          image: dev2c1vieira/kubernetes-auth-microservice:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 500m
+          envFrom:
+            - secretRef:
+                name: auth-api-secrets

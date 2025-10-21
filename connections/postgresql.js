@@ -9,6 +9,9 @@ const sequelize = new Sequelize(
     dialect: "postgres",
     port: process.env.PG_PORT || 5433,
     logging: false,
+    define: {
+      schema: process.env.PG_SCHEMA || 'public',
+    },
   }
 );
 
