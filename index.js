@@ -16,14 +16,20 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/tipo-funcionario", tipoFuncionarioRoutes);
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log("PostgreSQL connection established successfully.");
-    })
-    .catch((err) => {
-      console.error("Unable to connect to the database:", err);
-    });
-});
+// Só inicia o servidor se o arquivo for executado diretamente
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log("PostgreSQL connection established successfully.");
+      })
+      .catch((err) => {
+        console.error("Unable to connect to the database:", err);
+      });
+  });
+}
+
+// Exporta o app para poder ser usado em testes, por exemplo
+module.exports = app;
