@@ -16,10 +16,11 @@ psql -U postgres -f bd.sql
 ```
 
 ## 3. Build and run Docker container (optional)
-NOTE: Change PG_HOST to "host.docker.internal". Change it back to "postgresql-service" when you want to run the API in Minikube.
+
 ```
 docker-compose up --build
 ```
+>Change PG_HOST to "host.docker.internal". Change it back to "postgresql-service" when you want to run the API in Minikube.
 
 ## 4. Navigate to Kubernetes folder
 ```
@@ -101,10 +102,39 @@ kubectl get hpa
 ```
 kubectl port-forward deployment/scc-deployment 8080:8080
 ```
-Open ```http://localhost:8080``` on your browser to check.
+Open ```http://localhost:8080``` on your browser to check, and then test the routes on Postman.
+
+>You need this command to remain active, so use a second CMD tab/window from now on.
+
+If you get error 500, hit "Ctrl + C" and try the following on a different CMD tab/window:
+```
+kubectl exec -it postgresql-0 -- psql -U postgres -d Auth-MicroService
+```
+And then:
+```
+\dn
+```
+If you're not seeing the "app" schema, go back to the other CMD tab/window and run:
+```
+kubectl cp ../bd.sql postgresql-0:/bd.sql
+```
+And then:
+```
+kubectl exec -it postgresql-0 -- psql -U postgres -d Auth-MicroService -f /bd.sql
+```
+And check again if you see the "app" schema. If you do, run the port-forwarding again.
+
 
 ## Test API using K6
 Install K6:
 ```
 winget install k6
+```
+Make sure you are on the project root:
+```
+cd "{projectPath}"
+```
+Run the test script:
+```
+k6 run load-test.js
 ```
