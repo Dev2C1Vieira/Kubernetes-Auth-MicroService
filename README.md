@@ -138,3 +138,5 @@ Run the test script:
 ```
 k6 run load-test.js
 ```
+
+minikube addons enable metrics-server
