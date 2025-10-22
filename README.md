@@ -31,6 +31,10 @@ cd k8s
 ```
 minikube start
 ```
+And enable metrics:
+```
+minikube addons enable metrics-server
+```
 
 ## 6. Create Kubernetes secrets
 ```
@@ -125,7 +129,7 @@ kubectl exec -it postgresql-0 -- psql -U postgres -d Auth-MicroService -f /bd.sq
 And check again if you see the "app" schema. If you do, run the port-forwarding again.
 
 
-## Test API using K6
+## 11. Test API using K6
 Install K6:
 ```
 winget install k6
@@ -139,4 +143,7 @@ Run the test script:
 k6 run load-test.js
 ```
 
-minikube addons enable metrics-server
+## 12. Load test
+```
+kubectl run -i --rm load-generator --image=busybox -- /bin/sh -c "while true; do wget -q -O- http://host.minikube.internal:8080/login > /dev/null; done"
+```

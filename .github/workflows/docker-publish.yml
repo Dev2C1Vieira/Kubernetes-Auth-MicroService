@@ -8,8 +8,8 @@ name: Publish Docker image
 
 # Quando a pipeline é disparada
 on:
-  release:
-    types: [published]  # Apenas quando um release é publicado no GitHub
+  push:
+    branches: [main]  # Executa quando há commits na branch main
 
 # ========================
 # Job 1: Executar Testes
