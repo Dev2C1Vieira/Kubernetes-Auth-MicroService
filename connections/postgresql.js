@@ -1,16 +1,16 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-  process.env.PG_DATABASE,
-  process.env.PG_USER,
-  process.env.PG_PASSWORD,
+  process.env.CLOUD_PG_DATABASE,
+  process.env.CLOUD_PG_USER,
+  process.env.CLOUD_PG_PASSWORD,
   {
-    host: process.env.PG_HOST,
+    host: process.env.CLOUD_PG_HOST,
     dialect: "postgres",
-    port: process.env.PG_PORT || 5433,
+    port: process.env.CLOUD_PG_PORT || 5433,
     logging: false,
     define: {
-      schema: process.env.PG_SCHEMA || 'public',
+      schema: process.env.CLOUD_PG_SCHEMA || 'public',
     },
   }
 );
