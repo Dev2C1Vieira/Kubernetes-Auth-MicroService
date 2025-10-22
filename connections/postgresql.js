@@ -7,10 +7,16 @@ const sequelize = new Sequelize(
   {
     host: process.env.CLOUD_PG_HOST,
     dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
     port: process.env.CLOUD_PG_PORT || 5433,
     logging: false,
     define: {
-      schema: process.env.CLOUD_PG_SCHEMA || 'public',
+      schema: process.env.CLOUD_PG_SCHEMA || "public",
     },
   }
 );

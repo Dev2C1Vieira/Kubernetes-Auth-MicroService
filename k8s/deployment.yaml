@@ -26,4 +26,4 @@ spec:
               cpu: 500m
           envFrom:
             - secretRef:
-                name: auth-api-secrets
+                name: auth-api-cloud-secrets
