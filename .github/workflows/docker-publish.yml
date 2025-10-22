@@ -44,7 +44,7 @@ jobs:
 # ========================
 # Job 2: Build e Push da Imagem Docker
 # ========================
-push_to_registry:
+  push_to_registry:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     needs: test   # Este job só executa se o job "test" passar (sucesso)
