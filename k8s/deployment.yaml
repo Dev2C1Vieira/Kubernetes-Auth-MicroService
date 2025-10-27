@@ -14,9 +14,26 @@ spec:
       labels:
         app: scc
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for PostgreSQL..."
+              until nc -zv $CLOUD_PG_HOST $CLOUD_PG_PORT; do
+                echo "PostgreSQL not ready, sleeping 5s..."
+                sleep 5
+              done
+              echo "PostgreSQL is ready!"
+          envFrom:
+            - secretRef:
+                name: auth-api-cloud-secrets
       containers:
         - name: scc
-          image: dev2c1vieira/kubernetes-auth-microservice:latest
+          image: dev2c1vieira/kubernetes-auth-microservice:main
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           resources:
