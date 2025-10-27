@@ -22,17 +22,17 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: auth-api-secrets
+                  name: auth-api-cloud-secrets
                   key: CLOUD_PG_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: auth-api-secrets
+                  name: auth-api-cloud-secrets
                   key: CLOUD_PG_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: auth-api-secrets
+                  name: auth-api-cloud-secrets
                   key: CLOUD_PG_DATABASE
           ports:
             - containerPort: 5432
