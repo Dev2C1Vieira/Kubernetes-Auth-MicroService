@@ -13,8 +13,8 @@ const sequelize = new Sequelize(
         rejectUnauthorized: false,
       },
     },
-    port: process.env.CLOUD_PG_PORT || 5433,
-    logging: false,
+    port: parseInt(process.env.CLOUD_PG_PORT, 10) || 5433,
+    logging: console.log,
     define: {
       schema: process.env.CLOUD_PG_SCHEMA || "public",
     },

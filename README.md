@@ -51,6 +51,11 @@ kubectl describe secret auth-api-secrets
 ```
 
 ## 8. Apply YAML files
+Create secrets:
+```
+kubectl apply -f auth-api-cloud-secrets.yaml
+```
+
 Create database's PersistentVolumeClaim:
 ```
 kubectl apply -f postgre-pvc.yaml
@@ -146,4 +151,8 @@ k6 run load-test.js
 ## 12. Load test
 ```
 kubectl run -i --rm load-generator --image=busybox -- /bin/sh -c "while true; do wget -q -O- http://host.minikube.internal:8080/login > /dev/null; done"
+```
+To stop:
+```
+kubectl delete {load-generator}
 ```
