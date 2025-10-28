@@ -150,7 +150,7 @@ k6 run load-test.js
 
 ## 12. Load test
 ```
-kubectl run -i --rm load-generator --image=busybox -- /bin/sh -c "while true; do wget -q -O- http://host.minikube.internal:8080/login > /dev/null; done"
+kubectl run -i --rm load-generator --image=busybox -- /bin/sh -c "while true; do wget -q -O- http://localhost:8080/api/auth/login > /dev/null; done"
 ```
 To stop:
 ```
