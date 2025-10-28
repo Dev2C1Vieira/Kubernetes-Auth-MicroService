@@ -11,7 +11,7 @@ export const options = {
 
 export default function () {
   http.post(
-    "http://localhost:8080/login",
+    "http://localhost:8080/api/auth/login",
     JSON.stringify({
       email: "user@example.com",
       password: "1234",
