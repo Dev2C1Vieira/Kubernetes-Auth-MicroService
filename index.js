@@ -17,9 +17,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tipo-funcionario", tipoFuncionarioRoutes);
 
 if (require.main === module) {
-  app.listen(port, async () => {
+  app.listen(port, "0.0.0.0", async () => {
     console.log(`Server listening on port ${port}`);
-    await connectWithRetry(); // nunca falha no arranque
+    await connectWithRetry();
   });
 }
 
