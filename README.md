@@ -112,6 +112,11 @@ Check HPA and dynamic scaling:
 kubectl get hpa
 ```
 
+Check monitoring services:
+```
+kubectl get pods -n monitoring -o wide
+```
+
 ## 10. Port-forwarding (x)
 ```
 kubectl port-forward deployment/scc-deployment 8080:8080
