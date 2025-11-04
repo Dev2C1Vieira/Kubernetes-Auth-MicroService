@@ -91,6 +91,11 @@ Horizontal Pod Autoscaler:
 kubectl apply -f hpa.yaml
 ```
 
+Grafana:
+```
+kubectl apply -f grafana.yaml
+```
+
 ## 9. Check pods, services and HPA (optional)
 Check pods:
 ```
@@ -107,7 +112,7 @@ Check HPA and dynamic scaling:
 kubectl get hpa
 ```
 
-## 10. Port-forwarding
+## 10. Port-forwarding (x)
 ```
 kubectl port-forward deployment/scc-deployment 8080:8080
 ```
@@ -134,7 +139,7 @@ kubectl exec -it postgresql-0 -- psql -U postgres -d Auth-MicroService -f /bd.sq
 And check again if you see the "app" schema. If you do, run the port-forwarding again.
 
 
-## 11. Test API using K6
+## 11. Test API using K6 (x)
 Install K6:
 ```
 winget install k6
@@ -148,9 +153,23 @@ Run the test script:
 k6 run load-test.js
 ```
 
-## 12. Load test
+## 12. Open Grafana
+Port forwarding:
 ```
-kubectl run -i --rm load-generator --image=busybox -- /bin/sh -c "while true; do wget -q -O- http://localhost:8080/api/auth/login > /dev/null; done"
+kubectl port-forward -n monitoring svc/prometheus-grafana 3000:80
+```
+Open in browser:
+```
+http://localhost:3000/
+```
+Go to:
+```
+Home > Dashboards > Node Exporter / Nodes
+```
+
+## 13. Load test
+```
+kubectl run -i --rm load-generator --image=busybox -- /bin/sh -c "while true; do wget -qO- --header 'Content-Type: application/json' --post-data '{\"email\":\"tiago@test.com\",\"password\":\"123\"}' http://scc-service:8080/api/auth/login > /dev/null; done"
 ```
 To stop:
 ```
